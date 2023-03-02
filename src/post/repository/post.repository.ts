@@ -19,6 +19,10 @@ export class PostRepository extends BaseRepository<Post> {
     return this.postModel.countDocuments(filter);
   }
 
+  async findMaxPrice() {
+    return (await this.postModel.find().sort({ price: -1 }).limit(1))[0].price;
+  }
+
   async verifyQuantityShoes(item: TOrderItem) {
     const product: any = await this.postModel.findOne({
       $and: [

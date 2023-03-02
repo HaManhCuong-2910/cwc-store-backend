@@ -20,6 +20,7 @@ import { PermissionGuard } from 'src/guard/permission.guard';
 import {
   CreatePostDto,
   DeletePostDto,
+  QuerySearchPostDto,
   UpdatePostDto,
 } from './dto/CreatePost.dto';
 import { PostService } from './post.service';
@@ -30,7 +31,7 @@ export class PostController {
   constructor(private readonly PostService: PostService) {}
 
   @Get('/list')
-  async getAllPost(@Query() query: UpdatePostDto) {
+  async getAllPost(@Query() query: QuerySearchPostDto) {
     return await this.PostService.getAllPost(query);
   }
 

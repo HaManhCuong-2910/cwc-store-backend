@@ -23,6 +23,9 @@ const postSchema = new Schema(
     sales: {
       type: Number,
     },
+    sales_percent: {
+      type: Number,
+    },
     is_hot: {
       type: Boolean,
     },
@@ -60,6 +63,7 @@ export interface Post extends Document {
   description: string;
   price: number;
   sales: number;
+  sales_percent: number;
   is_hot: boolean;
   category: string;
   quantities: TQuantity[];

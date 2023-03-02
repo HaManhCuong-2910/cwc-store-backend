@@ -58,6 +58,15 @@ export class CreatePostDto extends BaseDto {
   })
   sales: number;
 
+  @IsNumber()
+  @Expose()
+  @IsOptional()
+  @ApiProperty({
+    type: Number,
+    description: 'The sales_percent of a post',
+  })
+  sales_percent: number;
+
   @IsBoolean()
   @Expose()
   @IsNotEmpty()
@@ -147,6 +156,15 @@ export class UpdatePostDto extends BaseDto {
   })
   sales: number;
 
+  @IsNumber()
+  @Expose()
+  @IsOptional()
+  @ApiProperty({
+    type: Number,
+    description: 'The sales_percent of a post',
+  })
+  sales_percent: number;
+
   @IsBoolean()
   @Expose()
   @IsOptional()
@@ -176,6 +194,84 @@ export class UpdatePostDto extends BaseDto {
     description: 'The images of a post',
   })
   images: string;
+}
+
+export class QuerySearchPostDto extends BaseDto {
+  @IsOptional()
+  @ApiProperty({
+    type: String || Number,
+    description: 'The page shoes of list post',
+  })
+  page: number;
+  @IsOptional()
+  @ApiProperty({
+    type: String || Number,
+    description: 'The limit shoes of list post',
+  })
+  limit: number;
+  @IsOptional()
+  @IsString()
+  @Expose()
+  @ApiProperty({
+    type: String,
+    description: 'The name shoes of a post',
+  })
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  @Expose()
+  @ApiProperty({
+    type: String,
+    description: 'The slug shoes of a post',
+  })
+  slug: string;
+
+  @IsOptional()
+  @IsString()
+  @Expose()
+  @ApiProperty({
+    type: String,
+    description: 'The description of a post',
+  })
+  description: string;
+
+  @IsOptional()
+  @ApiProperty({
+    type: Number,
+    description: 'The from_price of a post',
+  })
+  from_price: number;
+
+  @IsOptional()
+  @ApiProperty({
+    type: Number,
+    description: 'The to_price of a post',
+  })
+  to_price: number;
+
+  @IsOptional()
+  @ApiProperty({
+    type: Number,
+    description: 'The from_size of a post',
+  })
+  from_size: number;
+
+  @IsOptional()
+  @ApiProperty({
+    type: Number,
+    description: 'The to_size of a post',
+  })
+  to_size: number;
+
+  @IsBoolean()
+  @Expose()
+  @IsOptional()
+  @ApiProperty({
+    type: Boolean,
+    description: 'The is_hot of a post',
+  })
+  is_hot: boolean;
 }
 
 export class DeletePostDto extends BaseDto {
