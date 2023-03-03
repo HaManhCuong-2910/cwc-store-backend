@@ -30,7 +30,7 @@ export class PostService {
       queryName = { name: { $regex: '.*' + name + '.*', $options: 'i' } };
     }
 
-    if (from_price && to_price) {
+    if (to_price > 0) {
       queryPrice = {
         $or: [
           { price: { $gte: from_price, $lte: to_price } },
@@ -39,7 +39,7 @@ export class PostService {
       };
     }
 
-    if (from_size && to_size) {
+    if (to_size > 0) {
       querySize = {
         $and: [
           { 'quantities.size': { $gte: from_size, $lte: to_size } },
@@ -57,7 +57,7 @@ export class PostService {
 
     const result = await this.postRepo.getByCondition(
       {
-        $or: [queryPrice, queryName, querySize, filter],
+        $and: [queryPrice, queryName, querySize, filter],
       },
       undefined,
       { skip, limit, sort: { updatedAt: 1 } },
