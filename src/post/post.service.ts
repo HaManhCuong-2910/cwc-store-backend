@@ -47,14 +47,6 @@ export class PostService {
         ],
       };
     }
-
-    console.log('[queryPrice, queryName, querySize, filter]', [
-      queryPrice,
-      queryName,
-      querySize,
-      filter,
-    ]);
-
     const result = await this.postRepo.getByCondition(
       {
         $and: [queryPrice, queryName, querySize, filter],
