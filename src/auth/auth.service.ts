@@ -10,6 +10,7 @@ import { AuthRepository } from './repository/auth.repository';
 import { Request } from 'express';
 import { Cache } from 'cache-manager';
 import { filterAccount } from 'src/common/common';
+import { AuthCreateDto } from './dto/authCreate.dto';
 
 @Injectable()
 export class AuthService {
@@ -36,6 +37,7 @@ export class AuthService {
       return {
         status: HttpStatus.ACCEPTED,
         access_token,
+        user: resultLogin,
       };
     }
     throw new UnauthorizedException();
@@ -50,6 +52,24 @@ export class AuthService {
     } catch (error) {
       throw new UnauthorizedException();
     }
+  }
+
+  async register(payload: AuthCreateDto) {
+    const dataUser = AuthCreateDto.plainToClass(payload);
+    return await this.authRepository
+      .create(dataUser)
+      .then((newUser) => {
+        return {
+          success: true,
+          data: newUser,
+        };
+      })
+      .catch((error) => {
+        return {
+          success: true,
+          data: error,
+        };
+      });
   }
 
   async logout(request: Request) {

@@ -33,6 +33,11 @@ export class AuthController {
     return await this.authService.login(payload);
   }
 
+  @Post('/register')
+  async register(@Body() payload: AuthCreateDto) {
+    return await this.authService.register(payload);
+  }
+
   @Post('/logout')
   async logout(@Req() request: Request) {
     return await this.authService.logout(request);

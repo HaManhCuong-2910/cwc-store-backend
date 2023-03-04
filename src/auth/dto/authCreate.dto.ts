@@ -4,6 +4,8 @@ import {
   IsInt,
   IsMobilePhone,
   IsNotEmpty,
+  IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { BaseDto } from 'src/base/base.dto';
@@ -14,6 +16,16 @@ export class AuthCreateDto extends BaseDto {
   @Expose()
   email: string;
 
+  @IsOptional()
+  @IsString()
+  @Expose()
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  @Expose()
+  avatar: string;
+
   @IsNotEmpty()
   @IsMobilePhone('vi-VN')
   @Expose()
@@ -22,6 +34,18 @@ export class AuthCreateDto extends BaseDto {
   @IsString()
   @Expose()
   age: number;
+
+  @IsNumber()
+  @Expose()
+  province_id: number;
+
+  @IsNumber()
+  @Expose()
+  district_id: number;
+
+  @IsString()
+  @Expose()
+  address: number;
 
   @IsNotEmpty()
   @IsString()

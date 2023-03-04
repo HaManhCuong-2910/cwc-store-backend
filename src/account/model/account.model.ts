@@ -6,21 +6,27 @@ const accountSchema = new Schema(
     name: {
       type: String,
       require: true,
+      default: '',
     },
     email: {
       type: String,
       require: true,
+      default: '',
     },
     phoneNumber: {
       type: String,
       require: true,
+      default: '',
     },
     age: {
       type: Number,
+      require: false,
+      default: '',
     },
     password: {
       type: String,
       require: true,
+      default: '',
     },
     avatar: {
       type: String,
@@ -36,6 +42,21 @@ const accountSchema = new Schema(
       type: String,
       require: true,
       default: EStatusAccount.ACTIVE,
+    },
+    province_id: {
+      type: Number,
+      require: true,
+      default: '',
+    },
+    district_id: {
+      type: Number,
+      require: true,
+      default: '',
+    },
+    address: {
+      type: String,
+      require: true,
+      default: '',
     },
     type: {
       type: String,
@@ -58,6 +79,9 @@ export interface Account extends Document {
   age: number;
   password: string;
   avatar: string;
+  province_id: string;
+  district_id: string;
+  address: string;
   roles: string[];
   type: string;
 }
