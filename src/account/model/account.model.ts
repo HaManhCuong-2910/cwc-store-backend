@@ -18,11 +18,6 @@ const accountSchema = new Schema(
       require: true,
       default: '',
     },
-    age: {
-      type: Number,
-      require: false,
-      default: '',
-    },
     password: {
       type: String,
       require: true,
@@ -76,7 +71,6 @@ export interface Account extends Document {
   name: string;
   email: string;
   phoneNumber: string;
-  age: number;
   password: string;
   avatar: string;
   province_id: string;

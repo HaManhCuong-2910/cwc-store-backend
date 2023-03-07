@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { mailDefaultConfig } from 'src/config/mail.config';
 import { postSchema } from 'src/post/models/post.model';
 import { PostModule } from 'src/post/post.module';
 import { PostRepository } from 'src/post/repository/post.repository';
@@ -7,7 +8,7 @@ import { CartController } from './cart.controller';
 import { CartService } from './cart.service';
 import { orderSchema } from './models/order.model';
 import { OrderRepository } from './repository/order.repository';
-
+@Global()
 @Module({
   imports: [
     MongooseModule.forFeature([

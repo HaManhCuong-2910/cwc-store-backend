@@ -21,6 +21,19 @@ export enum EStatusAccount {
   LOCK = 'LOCK',
 }
 
+export const formatNumberMoney = (
+  value: number | string
+) => {
+  let valueNumber = value;
+  if (typeof value !== 'string') {
+    valueNumber = Number(value);
+  }
+  const formatter = new Intl.NumberFormat('vi-VN');
+  return formatter
+    .format(valueNumber as number)
+    .split(',')[0];
+};
+
 export const filterAccount = (user: any) => {
   return {
     id: `${user._id ?? user.id}`,

@@ -31,10 +31,6 @@ export class AuthCreateDto extends BaseDto {
   @Expose()
   phoneNumber: string;
 
-  @IsString()
-  @Expose()
-  age: number;
-
   @IsNumber()
   @Expose()
   province_id: number;

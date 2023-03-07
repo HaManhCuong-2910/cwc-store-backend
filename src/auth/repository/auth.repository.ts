@@ -57,7 +57,11 @@ export class AuthRepository extends BaseRepository<Account> {
           secret: process.env.JWT_SECRET,
         })
       ) {
-        return this.generate_access_token(filterAccount(user));
+        return {
+          status: HttpStatus.ACCEPTED,
+          access_token: this.generate_access_token(filterAccount(user)),
+          user
+        };
       }
       throw new UnauthorizedException();
     } catch (error) {

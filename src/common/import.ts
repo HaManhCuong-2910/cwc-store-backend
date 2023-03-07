@@ -9,6 +9,7 @@ import { CategoryModule } from 'src/category/category.module';
 import { CartModule } from 'src/cart/cart.module';
 import { ResponseModule } from 'src/response/response.module';
 import { mailDefaultConfig } from 'src/config/mail.config';
+import { NewsModule } from 'src/news/news.module';
 export const importApp = [
   ...connectDataBase,
   ...jwtDefaultConfig,
@@ -16,6 +17,7 @@ export const importApp = [
   PostModule,
   CategoryModule,
   AuthModule,
+  NewsModule,
   ServeStaticModule.forRoot({
     rootPath: join(__dirname, '..', 'public'),
     serveRoot: '/public/',

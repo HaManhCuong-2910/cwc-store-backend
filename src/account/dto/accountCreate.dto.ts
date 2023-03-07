@@ -23,9 +23,6 @@ export class AccountCreateDto extends BaseDto {
   @IsMobilePhone('vi-VN')
   phoneNumber: string;
 
-  @IsString()
-  age: number;
-
   @IsNotEmpty()
   @IsString()
   password: string;
