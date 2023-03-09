@@ -66,6 +66,9 @@ export class BaseRepository<T extends Document> {
   }
 
   async findByIdAndUpdate(id, update) {
-    return await this.model.findByIdAndUpdate(id, update);
+    return await this.model.findByIdAndUpdate(id, update, {
+      new: true,
+      upsert: true,
+    });
   }
 }

@@ -14,6 +14,10 @@ export const roles = {
   createAccount: 'create-account',
 
   createCategory: 'create-category',
+
+  createNews: 'create-news',
+  updateNews: 'update-news',
+  deleteNews: 'delete-news',
 };
 
 export enum EStatusAccount {
@@ -21,17 +25,13 @@ export enum EStatusAccount {
   LOCK = 'LOCK',
 }
 
-export const formatNumberMoney = (
-  value: number | string
-) => {
+export const formatNumberMoney = (value: number | string) => {
   let valueNumber = value;
   if (typeof value !== 'string') {
     valueNumber = Number(value);
   }
   const formatter = new Intl.NumberFormat('vi-VN');
-  return formatter
-    .format(valueNumber as number)
-    .split(',')[0];
+  return formatter.format(valueNumber as number).split(',')[0];
 };
 
 export const filterAccount = (user: any) => {

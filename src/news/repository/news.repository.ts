@@ -18,4 +18,8 @@ export class NewsRepository extends BaseRepository<News> {
   ) {
     super(newModel);
   }
+
+  async countDocuments(filter) {
+    return this.newModel.countDocuments(filter);
+  }
 }
