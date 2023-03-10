@@ -32,6 +32,11 @@ export class NewsController {
     return this.newsService.getList(query);
   }
 
+  @Get('/:id/detail')
+  async getDetailNews(@Param('id') id: string) {
+    return this.newsService.getDetailNews(id);
+  }
+
   @Post('/create')
   @UseGuards(PermissionGuard(roles.createNews))
   async createNews(@Body() data: CreateNewsDto) {

@@ -73,8 +73,8 @@ export interface Account extends Document {
   phoneNumber: string;
   password: string;
   avatar: string;
-  province_id: string;
-  district_id: string;
+  province_id: number;
+  district_id: number;
   address: string;
   roles: string[];
   type: string;

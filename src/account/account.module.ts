@@ -4,9 +4,9 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
-import { jwtDefaultConfig } from 'src/config/jwt.config';
 import { AuthMiddleware } from 'src/middleware/auth/auth.middleware';
 import { AccountController } from './account.controller';
 import { AccountService } from './account.service';
@@ -15,7 +15,6 @@ import { AccountRepository } from './repository/account.repository';
 
 @Module({
   imports: [
-    ...jwtDefaultConfig,
     MongooseModule.forFeature([
       {
         name: 'Account',
@@ -25,7 +24,7 @@ import { AccountRepository } from './repository/account.repository';
     MulterModule,
   ],
   controllers: [AccountController],
-  providers: [AccountService, AccountRepository],
+  providers: [AccountService, AccountRepository, JwtService],
 })
 export class AccountModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

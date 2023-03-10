@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { filterAccount } from 'src/common/common';
+import * as bcrypt from 'bcrypt';
 
 export class AuthRepository extends BaseRepository<Account> {
   constructor(
@@ -24,9 +25,14 @@ export class AuthRepository extends BaseRepository<Account> {
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.findByCondition({ email });
-    if (user && user.password === pass) {
-      delete user.password;
-      return user;
+    if (user) {
+      const isMatchPassword = await bcrypt.compare(pass, user.password);
+
+      if (isMatchPassword) {
+        delete user.password;
+        return user;
+      }
+      throw new UnauthorizedException();
     }
     throw new UnauthorizedException();
   }
@@ -60,7 +66,7 @@ export class AuthRepository extends BaseRepository<Account> {
         return {
           status: HttpStatus.ACCEPTED,
           access_token: this.generate_access_token(filterAccount(user)),
-          user
+          user,
         };
       }
       throw new UnauthorizedException();

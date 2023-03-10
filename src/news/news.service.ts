@@ -1,4 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import {
   CreateNewsDto,
   DeleteNewsDto,
@@ -41,10 +42,27 @@ export class NewsService {
 
     return {
       data: result,
-      page,
+      page: Number(page),
       countRecord: countRecord,
       count: Math.ceil(countRecord / limit),
     };
+  }
+
+  async getDetailNews(id: string) {
+    try {
+      const result = await this.newsRepository.findById(id);
+
+      if (result) {
+        return {
+          status: HttpStatus.OK,
+          data: result,
+        };
+      }
+
+      throw new HttpException('không tìm thấy tin tức', HttpStatus.NOT_FOUND);
+    } catch (error) {
+      throw new HttpException('không tìm thấy tin tức', HttpStatus.NOT_FOUND);
+    }
   }
 
   async createNews(data: CreateNewsDto) {

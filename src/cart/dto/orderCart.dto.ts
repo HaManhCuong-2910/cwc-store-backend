@@ -6,6 +6,8 @@ import {
   IsEmail,
   IsMobilePhone,
   IsNotEmpty,
+  IsNumber,
+  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -38,22 +40,22 @@ export class OrderCartDto extends BaseDto {
   phoneNumber: string;
 
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   @ApiProperty({
-    type: String,
+    type: Number,
     description: 'The province',
   })
-  province: string;
+  province: number;
 
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   @ApiProperty({
-    type: String,
+    type: Number,
     description: 'The district',
   })
-  district: string;
+  district: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @ApiProperty({
     type: String,

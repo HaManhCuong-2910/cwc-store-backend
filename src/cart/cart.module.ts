@@ -1,6 +1,5 @@
 import { Global, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { mailDefaultConfig } from 'src/config/mail.config';
 import { postSchema } from 'src/post/models/post.model';
 import { PostModule } from 'src/post/post.module';
 import { PostRepository } from 'src/post/repository/post.repository';

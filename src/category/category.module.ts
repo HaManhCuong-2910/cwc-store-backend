@@ -15,6 +15,7 @@ import { CategoryRepository } from './repository/category.repository';
 import { AccountService } from 'src/account/account.service';
 import { AccountRepository } from 'src/account/repository/account.repository';
 import { accountSchema } from 'src/account/model/account.model';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -28,7 +29,6 @@ import { accountSchema } from 'src/account/model/account.model';
         schema: accountSchema,
       },
     ]),
-    ...jwtDefaultConfig,
   ],
   controllers: [CategoryController],
   providers: [
@@ -36,6 +36,7 @@ import { accountSchema } from 'src/account/model/account.model';
     CategoryRepository,
     AccountService,
     AccountRepository,
+    JwtService,
   ],
 })
 export class CategoryModule implements NestModule {

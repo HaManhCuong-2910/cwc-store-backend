@@ -4,6 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
 import { join } from 'path';
@@ -32,10 +33,15 @@ import { PostRepository } from './repository/post.repository';
     MulterModule.register({
       dest: join(__dirname, '..', '..', 'public/images'),
     }),
-    ...jwtDefaultConfig,
   ],
   controllers: [PostController],
-  providers: [PostService, PostRepository, AccountService, AccountRepository],
+  providers: [
+    PostService,
+    PostRepository,
+    AccountService,
+    AccountRepository,
+    JwtService,
+  ],
 })
 export class PostModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

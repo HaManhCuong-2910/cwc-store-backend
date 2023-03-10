@@ -40,3 +40,5 @@ export const filterAccount = (user: any) => {
     roles: user.roles,
   };
 };
+
+export const saltOrRounds = 10;

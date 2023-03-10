@@ -40,6 +40,7 @@ export class AuthCreateDto extends BaseDto {
   district_id: number;
 
   @IsString()
+  @IsOptional()
   @Expose()
   address: number;
 

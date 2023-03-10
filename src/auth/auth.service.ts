@@ -1,16 +1,19 @@
 import {
   CACHE_MANAGER,
+  HttpException,
   HttpStatus,
   Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { UserLoginDto } from './dto/userLogin.dto';
+var md5 = require('md5');
 import { AuthRepository } from './repository/auth.repository';
 import { Request } from 'express';
 import { Cache } from 'cache-manager';
-import { filterAccount } from 'src/common/common';
+import { filterAccount, saltOrRounds } from 'src/common/common';
 import { AuthCreateDto } from './dto/authCreate.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -56,17 +59,27 @@ export class AuthService {
 
   async register(payload: AuthCreateDto) {
     const dataUser = AuthCreateDto.plainToClass(payload);
+    const { password, email, ...infoUser } = dataUser;
+    const validateExistAccount = await this.authRepository.findByCondition({
+      email,
+    });
+
+    if (validateExistAccount) {
+      throw new HttpException('Đã tồn tại email', HttpStatus.BAD_REQUEST);
+    }
+
+    const hashPassword = await bcrypt.hash(password, saltOrRounds);
     return await this.authRepository
-      .create(dataUser)
+      .create({ ...infoUser, password: hashPassword })
       .then((newUser) => {
         return {
-          success: true,
+          success: HttpStatus.OK,
           data: newUser,
         };
       })
       .catch((error) => {
         return {
-          success: true,
+          success: HttpStatus.BAD_REQUEST,
           data: error,
         };
       });
