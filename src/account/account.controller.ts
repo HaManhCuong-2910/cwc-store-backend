@@ -32,4 +32,9 @@ export class AccountController {
   async createAcc(@Body() account: AccountCreateDto) {
     return await this.accountService.createAcc(account);
   }
+
+  @Post('/update')
+  async updateAcc(@Body() data: any) {
+    return await this.accountService.updateAcc(data);
+  }
 }

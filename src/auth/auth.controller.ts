@@ -16,6 +16,11 @@ import { AuthService } from './auth.service';
 import { AuthCreateDto } from './dto/authCreate.dto';
 import { UserLoginDto } from './dto/userLogin.dto';
 import { Request } from 'express';
+import {
+  authForgotDto,
+  resetForgotDto,
+  resetPassDto,
+} from './dto/authForgot.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -26,6 +31,21 @@ export class AuthController {
   @Post('/refresh_access_token')
   async refresh_access_token(@Req() request: Request) {
     return await this.authService.refresh_access_token(request);
+  }
+
+  @Post('/forgot-password')
+  async forgotPassword(@Body() data: authForgotDto) {
+    return await this.authService.forgotPassword(data);
+  }
+
+  @Post('/reset-forgot-password')
+  async resetForgotPassword(@Body() data: resetForgotDto) {
+    return await this.authService.resetForgotPassword(data);
+  }
+
+  @Post('/reset-password')
+  async resetPassword(@Body() data: resetPassDto) {
+    return await this.authService.resetPassword(data);
   }
 
   @Post('/login')
