@@ -22,6 +22,10 @@ export class OrderRepository extends BaseRepository<Order> {
     super(orderModel);
   }
 
+  async countDocuments(filter) {
+    return this.orderModel.countDocuments(filter);
+  }
+
   async orderCart(orderCart: OrderCartDto) {
     const orders = orderCart.data;
     let price: number = 0;

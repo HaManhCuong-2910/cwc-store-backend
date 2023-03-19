@@ -28,6 +28,11 @@ const accountSchema = new Schema(
       require: true,
       default: 'default.jpg',
     },
+    public_id_avatar: {
+      type: String,
+      require: true,
+      default: '',
+    },
     roles: {
       type: Array,
       require: true,
@@ -70,6 +75,7 @@ export { accountSchema };
 export interface Account extends Document {
   name: string;
   email: string;
+  public_id_avatar: string;
   phoneNumber: string;
   password: string;
   avatar: string;

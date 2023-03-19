@@ -13,6 +13,7 @@ import {
 } from 'class-validator';
 import { BaseDto } from 'src/base/base.dto';
 import { COrderCart } from 'src/category/dto/deafaut.dto';
+import { EStatusOrder } from 'src/common/common';
 
 export class OrderCartDto extends BaseDto {
   @IsNotEmpty()
@@ -73,4 +74,13 @@ export class OrderCartDto extends BaseDto {
   })
   @Type(() => COrderCart)
   data: COrderCart[];
+}
+
+export class ChangStatusOrderDto extends BaseDto {
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
+  @IsNotEmpty()
+  status: EStatusOrder;
 }

@@ -25,6 +25,13 @@ export enum EStatusAccount {
   LOCK = 'LOCK',
 }
 
+export enum EStatusOrder {
+  PICKUP_PRODUCT = 0,
+  DELIVERY = 1,
+  RECEIVED = 2,
+  CANCEL = 3,
+}
+
 export const formatNumberMoney = (value: number | string) => {
   let valueNumber = value;
   if (typeof value !== 'string') {

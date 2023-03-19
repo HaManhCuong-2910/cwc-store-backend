@@ -12,6 +12,7 @@ import {
 import { Cache } from 'cache-manager';
 import { filterAccount } from 'src/common/common';
 import * as bcrypt from 'bcrypt';
+import { ObjectId } from 'mongodb';
 
 export class AuthRepository extends BaseRepository<Account> {
   constructor(
@@ -63,10 +64,12 @@ export class AuthRepository extends BaseRepository<Account> {
           secret: process.env.JWT_SECRET,
         })
       ) {
+        const objectID = new ObjectId(user.id);
+        const newUser = await this.AccountModel.findById(objectID);
         return {
           status: HttpStatus.ACCEPTED,
           access_token: this.generate_access_token(filterAccount(user)),
-          user,
+          user: newUser,
         };
       }
       throw new UnauthorizedException();

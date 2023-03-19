@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import { COrderCart } from 'src/category/dto/deafaut.dto';
+import { EStatusOrder } from 'src/common/common';
 
 const orderSchema = new Schema(
   {
@@ -36,6 +37,7 @@ const orderSchema = new Schema(
         id: {
           type: Schema.Types.ObjectId,
           require: true,
+          ref: 'Post',
         },
         name: {
           type: String,
@@ -55,6 +57,11 @@ const orderSchema = new Schema(
         },
       },
     ],
+    status: {
+      type: Number,
+      require: true,
+      default: EStatusOrder.PICKUP_PRODUCT,
+    },
   },
   {
     timestamps: true,
@@ -78,5 +85,6 @@ export interface Order extends Document {
   address: string;
 
   price: number;
+  status: EStatusOrder;
   data: COrderCart[];
 }
