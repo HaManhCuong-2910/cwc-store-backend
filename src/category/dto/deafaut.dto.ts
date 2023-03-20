@@ -92,4 +92,12 @@ export class GetOneCategoryDto {
     description: 'The updatedAt of the category',
   })
   updatedAt: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    type: String,
+    description: 'The isCategoryProduct of the category',
+  })
+  isCategoryProduct: string;
 }

@@ -13,6 +13,9 @@ const categorySchema = new Schema(
     parent: {
       type: Schema.Types.ObjectId,
     },
+    isCategoryProduct: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
@@ -25,4 +28,5 @@ export { categorySchema };
 export interface Category extends Document {
   name: string;
   parent: string;
+  isCategoryProduct: boolean;
 }

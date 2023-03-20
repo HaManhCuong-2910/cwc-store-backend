@@ -18,7 +18,6 @@ export type TOrderItem = {
 export class CQuantity {
   @IsNotEmpty()
   @Expose()
-  @IsNumber()
   @ApiProperty({
     type: Number,
     description: 'The size of the shoes',
@@ -27,7 +26,6 @@ export class CQuantity {
 
   @IsNotEmpty()
   @Expose()
-  @IsNumber()
   @ApiProperty({
     type: Number,
     description: 'The quantity of the shoes',

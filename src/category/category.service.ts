@@ -6,8 +6,8 @@ import { CategoryRepository } from './repository/category.repository';
 @Injectable()
 export class CategoryService {
   constructor(private readonly categoryRepository: CategoryRepository) {}
-  async getCategories() {
-    return await this.categoryRepository.getCategories();
+  async getCategories(isCategoryProduct: boolean) {
+    return await this.categoryRepository.getCategories(isCategoryProduct);
   }
 
   async getOneCategory(query: GetOneCategoryDto) {

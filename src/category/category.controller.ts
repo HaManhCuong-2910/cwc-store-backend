@@ -26,8 +26,8 @@ export class CategoryController {
   }
 
   @Get('/list')
-  async getCategories() {
-    return await this.CategoryService.getCategories();
+  async getCategories(@Query('isCategoryProduct') isCategoryProduct: boolean) {
+    return await this.CategoryService.getCategories(isCategoryProduct);
   }
 
   @Post('/create')

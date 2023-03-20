@@ -52,7 +52,7 @@ export class PostService {
         $and: [queryPrice, queryName, querySize, filter],
       },
       undefined,
-      { skip, limit, sort: { updatedAt: 1 } },
+      { skip, limit, sort: { updatedAt: -1 } },
       'category',
     );
     const countRecord = await this.postRepo.countDocuments({
@@ -80,18 +80,30 @@ export class PostService {
   }
 
   async DeletePost(id: string) {
-    return await this.postRepo.deleteOne(id);
+    await this.postRepo.deleteOne(id);
+    return {
+      status: HttpStatus.OK,
+      message: 'Xóa thành công',
+    };
   }
 
   async createPost(dataPosts: CreatePostDto) {
     let result = await this.postRepo.create(dataPosts);
 
-    return result;
+    return {
+      status: HttpStatus.OK,
+      message: 'Tạo mới thành công',
+      data: result,
+    };
   }
 
   async updatePost(id: string, dataPosts: UpdatePostDto) {
     let result = await this.postRepo.findByIdAndUpdate(id, dataPosts);
 
-    return result;
+    return {
+      status: HttpStatus.OK,
+      message: 'Sửa thành công',
+      data: result,
+    };
   }
 }

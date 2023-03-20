@@ -58,7 +58,6 @@ export class CreatePostDto extends BaseDto {
   })
   sales: number;
 
-  @IsNumber()
   @Expose()
   @IsOptional()
   @ApiProperty({

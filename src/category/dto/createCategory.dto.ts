@@ -30,4 +30,12 @@ export class createCategoryDto extends BaseDto {
     description: 'The parent category',
   })
   parent: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    type: String,
+    description: 'The isCategoryProduct of the category',
+  })
+  isCategoryProduct: string;
 }
