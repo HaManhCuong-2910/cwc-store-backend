@@ -26,13 +26,19 @@ export class CategoryController {
   }
 
   @Get('/list')
-  async getCategories(@Query('isCategoryProduct') isCategoryProduct: boolean) {
-    return await this.CategoryService.getCategories(isCategoryProduct);
+  async getCategories(@Query() query: any) {
+    return await this.CategoryService.getCategories(query);
   }
 
   @Post('/create')
   @UseGuards(PermissionGuard(roles.createCategory))
   async createCategory(@Body() data: createCategoryDto) {
     return await this.CategoryService.createCategory(data);
+  }
+
+  @Delete('/:id/delete')
+  @UseGuards(PermissionGuard(roles.deleteCategory))
+  async deleteCategory(@Param('id') id: string) {
+    return await this.CategoryService.deleteCategory(id);
   }
 }

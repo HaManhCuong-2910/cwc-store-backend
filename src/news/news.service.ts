@@ -72,13 +72,13 @@ export class NewsService {
       .create(dtoNews)
       .then((newNews) => {
         return {
-          success: HttpStatus.OK,
+          status: HttpStatus.OK,
           data: newNews,
         };
       })
       .catch((error) => {
         return {
-          success: HttpStatus.BAD_REQUEST,
+          status: HttpStatus.BAD_REQUEST,
           data: error,
         };
       });
@@ -93,13 +93,13 @@ export class NewsService {
       .findByIdAndUpdate(_id, updateDtoData)
       .then((res) => {
         return {
-          success: HttpStatus.OK,
+          status: HttpStatus.OK,
           data: res,
         };
       })
       .catch((error) => {
         return {
-          success: HttpStatus.BAD_REQUEST,
+          status: HttpStatus.BAD_REQUEST,
           data: error,
         };
       });
@@ -112,13 +112,13 @@ export class NewsService {
       .deleteOne(param.id)
       .then((res) => {
         return {
-          success: HttpStatus.OK,
+          status: HttpStatus.OK,
           data: res,
         };
       })
       .catch((error) => {
         return {
-          success: HttpStatus.BAD_REQUEST,
+          status: HttpStatus.BAD_REQUEST,
           data: error,
         };
       });

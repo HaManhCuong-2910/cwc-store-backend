@@ -11,7 +11,9 @@ import { AuthMiddleware } from 'src/middleware/auth/auth.middleware';
 import { AccountController } from './account.controller';
 import { AccountService } from './account.service';
 import { accountSchema } from './model/account.model';
+import { rolesSchema } from './model/roles.model';
 import { AccountRepository } from './repository/account.repository';
+import { RolesRepository } from './repository/roles.repository';
 
 @Module({
   imports: [
@@ -20,16 +22,18 @@ import { AccountRepository } from './repository/account.repository';
         name: 'Account',
         schema: accountSchema,
       },
+      {
+        name: 'Roles',
+        schema: rolesSchema,
+      },
     ]),
     MulterModule,
   ],
   controllers: [AccountController],
-  providers: [AccountService, AccountRepository, JwtService],
+  providers: [AccountService, AccountRepository, JwtService, RolesRepository],
 })
 export class AccountModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'account/:id/user', method: RequestMethod.GET });
+    consumer.apply(AuthMiddleware).forRoutes(AccountController);
   }
 }

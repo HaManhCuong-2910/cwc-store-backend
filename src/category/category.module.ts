@@ -16,6 +16,8 @@ import { AccountService } from 'src/account/account.service';
 import { AccountRepository } from 'src/account/repository/account.repository';
 import { accountSchema } from 'src/account/model/account.model';
 import { JwtService } from '@nestjs/jwt';
+import { RolesRepository } from 'src/account/repository/roles.repository';
+import { rolesSchema } from 'src/account/model/roles.model';
 
 @Module({
   imports: [
@@ -28,6 +30,10 @@ import { JwtService } from '@nestjs/jwt';
         name: 'Account',
         schema: accountSchema,
       },
+      {
+        name: 'Roles',
+        schema: rolesSchema,
+      },
     ]),
   ],
   controllers: [CategoryController],
@@ -36,6 +42,7 @@ import { JwtService } from '@nestjs/jwt';
     CategoryRepository,
     AccountService,
     AccountRepository,
+    RolesRepository,
     JwtService,
   ],
 })
