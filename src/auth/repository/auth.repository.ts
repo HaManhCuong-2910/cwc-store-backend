@@ -10,7 +10,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { filterAccount } from 'src/common/common';
+import { EStatusAccount, filterAccount } from 'src/common/common';
 import * as bcrypt from 'bcrypt';
 import { ObjectId } from 'mongodb';
 
@@ -27,9 +27,11 @@ export class AuthRepository extends BaseRepository<Account> {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.findByCondition({ email });
     if (user) {
+      const { status } = user;
       const isMatchPassword = await bcrypt.compare(pass, user.password);
+      const isActiveAccount = status === EStatusAccount.ACTIVE;
 
-      if (isMatchPassword) {
+      if (isMatchPassword && isActiveAccount) {
         delete user.password;
         return user;
       }

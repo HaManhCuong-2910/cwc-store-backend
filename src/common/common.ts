@@ -38,6 +38,11 @@ export enum EStatusOrder {
   CANCEL = 3,
 }
 
+export enum EStatusPaymentOrder {
+  PAYED = 1,
+  NO_PAY = 0,
+}
+
 export const formatNumberMoney = (value: number | string) => {
   let valueNumber = value;
   if (typeof value !== 'string') {
@@ -49,7 +54,8 @@ export const formatNumberMoney = (value: number | string) => {
 
 export const filterAccount = (user: any) => {
   return {
-    id: `${user._id ?? user.id}`,
+    id: `${user._id || user.id}`,
+    status: user.status,
     roles: user.roles,
   };
 };

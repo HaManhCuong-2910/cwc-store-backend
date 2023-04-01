@@ -43,10 +43,9 @@ export class AccountService {
   async updateAcc(data: any) {
     const { _id, ...updateDtoData } = data;
 
-    const updateDataResponse = await this.AccRepo.findByIdAndUpdate(
-      _id,
-      updateDtoData,
-    )
+    const updateDataResponse = await this.AccRepo.findByIdAndUpdate(_id, {
+      ...updateDtoData,
+    })
       .then((res) => {
         return {
           success: HttpStatus.OK,
@@ -112,5 +111,18 @@ export class AccountService {
 
   async getAcc(id: string) {
     return await this.AccRepo.findById(id);
+  }
+
+  async deleteACC(id: string) {
+    try {
+      await this.AccRepo.deleteOne(id);
+
+      return {
+        status: HttpStatus.OK,
+        message: 'Thành công',
+      };
+    } catch (error) {
+      throw new HttpException('Không thành công', HttpStatus.BAD_REQUEST);
+    }
   }
 }

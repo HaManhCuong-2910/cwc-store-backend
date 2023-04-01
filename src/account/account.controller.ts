@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -51,5 +52,11 @@ export class AccountController {
   @UseGuards(PermissionGuard(roles.updateAccount))
   async updateAcc(@Body() data: any) {
     return await this.accountService.updateAcc(data);
+  }
+
+  @Delete('/:id/delete')
+  @UseGuards(PermissionGuard(roles.deleteAccount))
+  async deleteACC(@Param('id') id: string) {
+    return await this.accountService.deleteACC(id);
   }
 }

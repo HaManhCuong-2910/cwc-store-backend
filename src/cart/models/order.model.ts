@@ -1,12 +1,17 @@
 import { Schema } from 'mongoose';
 import { COrderCart } from 'src/category/dto/deafaut.dto';
-import { EStatusOrder } from 'src/common/common';
+import { EStatusOrder, EStatusPaymentOrder } from 'src/common/common';
 
 const orderSchema = new Schema(
   {
     name: {
       type: String,
       require: true,
+    },
+    status_payment: {
+      type: Number,
+      require: true,
+      default: EStatusPaymentOrder.NO_PAY,
     },
     email: {
       type: String,
@@ -83,6 +88,8 @@ export interface Order extends Document {
   district: string;
 
   address: string;
+
+  status_payment: EStatusPaymentOrder;
 
   price: number;
   status: EStatusOrder;

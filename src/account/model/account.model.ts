@@ -75,6 +75,7 @@ export { accountSchema };
 export interface Account extends Document {
   name: string;
   email: string;
+  status: EStatusAccount;
   public_id_avatar: string;
   phoneNumber: string;
   password: string;

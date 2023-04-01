@@ -10,7 +10,11 @@ import {
 import { Param } from '@nestjs/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
 import { CartService } from './cart.service';
-import { ChangStatusOrderDto, OrderCartDto } from './dto/orderCart.dto';
+import {
+  ChangStatusOrderDto,
+  ChangStatusPaymentOrderDto,
+  OrderCartDto,
+} from './dto/orderCart.dto';
 import { OrderListDto } from './dto/orderList.dto';
 
 @ApiTags('cart')
@@ -31,6 +35,11 @@ export class CartController {
   @Put('/change-status-order')
   async changStatusOrder(@Body() data: ChangStatusOrderDto) {
     return await this.cartService.changStatusOrder(data);
+  }
+
+  @Put('/change-status-payment-order')
+  async changStatusPaymentOrder(@Body() data: ChangStatusPaymentOrderDto) {
+    return await this.cartService.changStatusPaymentOrder(data);
   }
 
   @Delete('/:id/remove-order')
