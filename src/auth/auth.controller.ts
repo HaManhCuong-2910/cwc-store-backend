@@ -50,7 +50,12 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() payload: UserLoginDto) {
-    return await this.authService.login(payload);
+    return await this.authService.login(payload, false);
+  }
+
+  @Post('/admin-login')
+  async AdminLogin(@Body() payload: UserLoginDto) {
+    return await this.authService.login(payload, true);
   }
 
   @Post('/register')

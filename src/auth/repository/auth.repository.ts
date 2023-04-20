@@ -24,14 +24,22 @@ export class AuthRepository extends BaseRepository<Account> {
     super(AccountModel);
   }
 
-  async validateUser(email: string, pass: string): Promise<any> {
+  async validateUser(
+    email: string,
+    pass: string,
+    isAdminLogin: boolean,
+  ): Promise<any> {
     const user = await this.findByCondition({ email });
     if (user) {
-      const { status } = user;
+      const { status, type } = user;
       const isMatchPassword = await bcrypt.compare(pass, user.password);
       const isActiveAccount = status === EStatusAccount.ACTIVE;
+      let allowLogin = true;
+      if (isAdminLogin) {
+        allowLogin = type === 'ADMIN';
+      }
 
-      if (isMatchPassword && isActiveAccount) {
+      if (isMatchPassword && isActiveAccount && allowLogin) {
         delete user.password;
         return user;
       }

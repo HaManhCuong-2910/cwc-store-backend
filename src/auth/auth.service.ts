@@ -35,9 +35,13 @@ export class AuthService {
     private readonly mailerService: MailerService,
   ) {}
 
-  async login(payload: UserLoginDto) {
+  async login(payload: UserLoginDto, isAdminLogin: boolean) {
     const { email, password } = UserLoginDto.plainToClass(payload);
-    const resultLogin = await this.authRepository.validateUser(email, password);
+    const resultLogin = await this.authRepository.validateUser(
+      email,
+      password,
+      isAdminLogin,
+    );
     if (resultLogin) {
       const access_token = this.authRepository.generate_access_token(
         filterAccount(resultLogin),
