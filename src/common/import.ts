@@ -10,12 +10,14 @@ import { CartModule } from 'src/cart/cart.module';
 import { ResponseModule } from 'src/response/response.module';
 import { mailDefaultConfig } from 'src/config/mail.config';
 import { NewsModule } from 'src/news/news.module';
+import { StatisticalModule } from 'src/statistical/statistical.module';
 export const importApp = [
   ...connectDataBase,
   ...jwtDefaultConfig,
   ...mailDefaultConfig,
   PostModule,
   CategoryModule,
+  StatisticalModule,
   AuthModule,
   NewsModule,
   ServeStaticModule.forRoot({

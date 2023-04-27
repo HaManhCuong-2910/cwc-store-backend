@@ -112,4 +112,33 @@ export class OrderRepository extends BaseRepository<Order> {
       order_bill: orders,
     };
   }
+
+  async revenue(date?: Date) {
+    let dateSearch = {};
+    let dateSearch_years = {};
+    if (date) {
+      dateSearch = {
+        createdAt: {
+          $gte: date,
+        },
+      };
+      dateSearch_years = {
+        createdAt: {
+          $gte: new Date(date.getFullYear(), 1, 1),
+        },
+      };
+    }
+    const dataRevenue_month = await this.orderModel.find(dateSearch);
+    const dataRevenue_years = await this.orderModel.find(dateSearch_years);
+    const revenue_month = dataRevenue_month.reduce((num: any, obj: any) => {
+      return num + obj.price;
+    }, 0);
+    const revenue_years = dataRevenue_years.reduce((num: any, obj: any) => {
+      return num + obj.price;
+    }, 0);
+    return {
+      revenue_month,
+      revenue_years,
+    };
+  }
 }
