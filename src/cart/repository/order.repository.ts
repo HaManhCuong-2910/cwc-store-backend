@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { join } from 'path';
 import { BaseRepository } from 'src/base/base.repository';
-import { formatNumberMoney } from 'src/common/common';
+import { EStatusPaymentOrder, formatNumberMoney } from 'src/common/common';
 import { TOrderItem } from 'src/post/dto/deafaut.dto';
 import { Post } from 'src/post/models/post.model';
 import { PostRepository } from 'src/post/repository/post.repository';
@@ -118,14 +118,28 @@ export class OrderRepository extends BaseRepository<Order> {
     let dateSearch_years = {};
     if (date) {
       dateSearch = {
-        createdAt: {
-          $gte: date,
-        },
+        $and: [
+          {
+            createdAt: {
+              $gte: new Date(date.getFullYear(), date.getMonth(), 1),
+            },
+          },
+          {
+            status_payment: EStatusPaymentOrder.PAYED,
+          },
+        ],
       };
       dateSearch_years = {
-        createdAt: {
-          $gte: new Date(date.getFullYear(), 1, 1),
-        },
+        $and: [
+          {
+            createdAt: {
+              $gte: new Date(date.getFullYear(), 1, 1),
+            },
+          },
+          {
+            status_payment: EStatusPaymentOrder.PAYED,
+          },
+        ],
       };
     }
     const dataRevenue_month = await this.orderModel.find(dateSearch);

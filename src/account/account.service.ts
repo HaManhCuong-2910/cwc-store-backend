@@ -25,7 +25,11 @@ export class AccountService {
     }
 
     const hashPassword = await bcrypt.hash(password, saltOrRounds);
-    return await this.AccRepo.create({ ...infoUser, password: hashPassword })
+    return await this.AccRepo.create({
+      ...infoUser,
+      password: hashPassword,
+      email,
+    })
       .then((newUser) => {
         return {
           success: HttpStatus.OK,
