@@ -121,7 +121,14 @@ export class OrderRepository extends BaseRepository<Order> {
         $and: [
           {
             createdAt: {
-              $gte: new Date(date.getFullYear(), date.getMonth(), 1),
+              $gte: new Date(`${date.getFullYear()}-${date.getMonth()}-${1}`),
+            },
+          },
+          {
+            createdAt: {
+              $lt: new Date(
+                `${date.getFullYear()}-${date.getMonth() + 1}-${1}`,
+              ),
             },
           },
           {
@@ -133,7 +140,12 @@ export class OrderRepository extends BaseRepository<Order> {
         $and: [
           {
             createdAt: {
-              $gte: new Date(date.getFullYear(), 1, 1),
+              $gte: new Date(`${date.getFullYear()}-${1}-${1}`),
+            },
+          },
+          {
+            createdAt: {
+              $lt: new Date(`${date.getFullYear() + 1}-${1}-${1}`),
             },
           },
           {
@@ -154,5 +166,40 @@ export class OrderRepository extends BaseRepository<Order> {
       revenue_month,
       revenue_years,
     };
+  }
+
+  async chartRevenue() {
+    const now = new Date();
+    const listChartRevenue = [];
+    for (let i = 1; i <= 12; i++) {
+      const chartEveryMonth = await this.orderModel.find({
+        $and: [
+          {
+            createdAt: {
+              $gte: new Date(`${now.getFullYear()}-${i}-${1}`),
+            },
+          },
+          {
+            createdAt: {
+              $lt:
+                i === 12
+                  ? new Date(`${now.getFullYear() + 1}-${1}-${1}`)
+                  : new Date(`${now.getFullYear()}-${i + 1}-${1}`),
+            },
+          },
+          {
+            status_payment: EStatusPaymentOrder.PAYED,
+          },
+        ],
+      });
+      const revenue_month = chartEveryMonth.reduce((num: any, obj: any) => {
+        return num + obj.price;
+      }, 0);
+      listChartRevenue.push({
+        month: i,
+        revenue_month,
+      });
+    }
+    return listChartRevenue;
   }
 }

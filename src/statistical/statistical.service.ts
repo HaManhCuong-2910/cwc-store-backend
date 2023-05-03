@@ -18,6 +18,7 @@ export class StatisticalService {
     const { date } = query;
     const newDate = date ? new Date(date) : new Date();
     const revenue = await this.orderRepository.revenue(newDate);
+    const chartRevenue = await this.orderRepository.chartRevenue();
     const countOrders = await this.orderRepository.countDocuments({});
     const countAccounts = await this.AccRepo.countDocuments({});
     const countNews = await this.newsRepository.countDocuments({});
@@ -25,6 +26,7 @@ export class StatisticalService {
     return {
       countOrders,
       ...revenue,
+      chartRevenue,
       countAccounts,
       countNews,
     };
