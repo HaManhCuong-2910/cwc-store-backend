@@ -180,7 +180,7 @@ export class AuthService {
 
     const hashPassword = await bcrypt.hash(password, saltOrRounds);
     return await this.authRepository
-      .create({ ...infoUser, password: hashPassword })
+      .create({ ...infoUser, email, password: hashPassword })
       .then((newUser) => {
         return {
           success: HttpStatus.OK,
